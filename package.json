@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "repository": "git@github.com:ASDAlexey/elasticseach.git",
+  "author": "Alexey Popov <alexey.popov@umbrella-web.com>",
   "scripts": {
     "es:start": "docker run -d --name es -p 9200:9200 -e 'http.host=0.0.0.0' -e 'transport.host=127.0.0.1' -e 'http.cors.enabled=true' -e 'http.cors.allow-origin=*' -e 'xpack.security.enabled=false' docker.elastic.co/elasticsearch/elasticsearch:6.0.0",
     "es:clean": "docker stop es && docker rm es",
     "es:restart": "npm run es:clean && npm run es:start"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "csv-parser": "^1.12.0",

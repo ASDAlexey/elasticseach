@@ -15,6 +15,8 @@ const start = async () => {
 
   const query = 'London';
 
+  console.time('t');
+
   const resp = await client.search({
     index: 'osm',
     type: 'place',
@@ -43,6 +45,7 @@ const start = async () => {
   });
   const { hits } = resp.hits;
   console.log(hits);
+  console.timeEnd('t');
 };
 
 start();
