@@ -49,10 +49,9 @@ const start = async () => {
     .each(async entries => {
       stream.pause();
       const body = entries.reduce((acc, val) => acc.concat(val), []);
-      // console.log(body);
       await client.bulk({ body });
-      currentIndex += 1000;
-      console.log('done with', currentIndex);
+      // currentIndex += 1000;
+      // console.log('done with', currentIndex);
       stream.resume();
     })
     .on('end', () => {

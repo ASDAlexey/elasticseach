@@ -13,45 +13,48 @@ const start = async () => {
   await client.ping({ requestTimeout: 30000 });
   console.log('pinged server');
 
-  const query = 'London';
+  const query = 'test_1';
 
   console.time('t');
 
   try {
     const resp = await client.search({
-      index: 'osm',
+      index: 'test',
       type: 'place',
       body: {
         // sort: [
         //   { place_rank_num: { order: 'desc' } },
         //   { importance_num: { order: 'desc' } }
         // ],
-        _source: ['name', 'alternative_names'],
         // from: 0,
         // size: 1000,
+        // query: {
+        //   match: { description: 'description' },
+        // },
+        // query: {
+        //   // match: { location: "test_1"}
+        //   match_all: {}
+        // }
         query: {
           bool: {
             should: [
-              {
-                // match: {
-                //   name: query,
-                // },
-                match_all: {},
-              },
-              // {
-              //   match: {
-              //     alternative_names: query,
-              //   },
-              // }
+              { match: { location: query } },
+              { match: { description: query } },
             ]
           },
+        },
+        "highlight": {
+          "fields": {
+            "location": {},
+            "description": {}
+          }
         }
       }
     });
-    console.log('ss');
+    console.log('/////');
     console.log(resp);
     const { hits } = resp.hits;
-    // console.log(hits);
+    console.log(hits);
     console.timeEnd('t');
   } catch (e) {
     console.log(e);
